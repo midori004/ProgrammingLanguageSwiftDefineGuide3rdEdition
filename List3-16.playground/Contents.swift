@@ -11,4 +11,18 @@ struct ValueWithCounter {
 
 struct ValueInLine {
     private static var _pool: [Double] = []
+    let index: Int
+    
+    init(_ v: Double) {
+        index = ValueInLine._pool.count
+        ValueInLine._pool.append(v)
+    }
+    var value: Double {
+        get { return ValueInLine._pool[index] }
+        nonmutating set { ValueInLine._pool[index] = newValue }
+    }
+    
+    static func clear() {
+        for i in 0..<_pool.count { _pool[i] = 0.0 }
+    }
 }
